@@ -1,0 +1,19 @@
+.card-body a {
+    font-size: 25px;
+}
+
+.input-group{
+    width: 24%;
+    border-radius:0px;
+    margin-top:40px;
+    margin-left: 20px;
+}
+
+button{
+    border: 1px solid;
+    border-color:#BDBDBD;
+    background-color: #EBEBEB;
+}
+
+
+

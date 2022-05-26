@@ -1,0 +1,139 @@
+body {
+    background-color: rgb(255, 255, 255);
+    font-family: "CormorantUnicase-Regular";
+    overflow-x: hidden;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+}
+
+.banner p {
+    color: white;
+    font-family: "CormorantGaramond-Light";
+    position: absolute;
+    font-weight: normal;
+    top: -350px;
+    left: 15%;
+    width: 100%;
+    font-size: 162px;
+}
+
+#names {
+    text-shadow: 0px 0px 0px, 15px -10px 5px rgb(0, 0, 0);
+}
+
+#subname {
+    font-size: 35px;
+    top: -170px;
+    left: 27%;
+}
+
+blockquote {
+    width: 60vw;
+    border: 2px solid #383838;
+    font-size: 18px;
+    font-style: italic;
+    margin: 90px 31px 31px 20%;
+    padding: 16px 24px;
+    box-shadow: 15px 15px 0 0 #383838;
+}
+
+.info {
+    font-size: 50px;
+    font-weight: 500;
+}
+
+#awards {
+    list-style: none;
+    text-align: justify;
+    margin-left: 33%;
+}
+
+#awards li {
+    background: url(../img/награда.png) no-repeat;
+    padding-left: 35px;
+}
+
+.date {
+    margin-left: 8%;
+    margin-bottom: 30px;
+}
+
+#paragraph_about {
+    margin-bottom: 40px;
+    text-align: justify;
+    margin-left: 8%;
+}
+
+.description {
+    margin-left: 13%;
+    width: 70vw;
+    display: flex;
+    flex-direction: row;
+}
+
+p {
+    margin-bottom: 0px;
+}
+
+
+@media screen and (max-width: 1440px) {
+    .container_perform .performance {
+        margin-left: 10%;
+        font-size: 20px;
+    }
+
+    .description {
+        font-size: smaller;
+        flex-direction: column;
+    }
+
+    .description .info {
+        font-size: 30px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .about {
+        width: 60%;
+        margin-left: 20%;
+        margin-top: 100px;
+        font-size: 20px;
+        text-align: left;
+        background-color: rgba(201, 201, 201, 0.342);
+        padding: 20px 40px 20px 40px;
+    }
+
+    #paragraph_about {
+        text-align: justify;
+    }
+
+    #awards {
+        margin-top: 10px;
+        margin-left: 15%;
+        margin-right: 20%;
+        font-size: 20px;
+    }
+
+    blockquote {
+        border: 2px solid #383838;
+        font-style: italic;
+        margin: 80px 31px 31px 20%;
+        padding: 16px 24px;
+        box-shadow: 15px 15px 0 0 #383838;
+    }
+
+    .block h1 {
+        margin-top: 50px;
+        font-size: 1.6em;
+    }
+}
+
+@font-face {
+    font-family: "CormorantGaramond-Light";
+    src: url("../fonts/CormorantGaramond-Light.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}

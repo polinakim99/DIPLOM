@@ -1,0 +1,144 @@
+body {
+    background-color: rgb(255, 255, 255);
+    font-family: "CormorantUnicase-Regular";
+    overflow-x: hidden;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.container .performance {
+    font-size: 21px;
+    margin-bottom: 30px;
+}
+
+.people {
+    margin-top: 100px;
+}
+
+.performance img {
+    width: 60%;
+}
+
+h3 {
+    font-weight: bold;
+}
+
+.block-text p {
+    margin-bottom: -10px;
+}
+
+#position {
+    font-size: 15px;
+}
+
+.card {
+    border-color: transparent;
+    font-family: "CormorantUnicase-SemiBold";
+    font-weight: 500;
+}
+
+.card-body a {
+    font-size: 25px;
+    font-family: "CormorantUnicase-Regular";
+    font-weight: bold;
+    color: #383838 !important;
+    margin-bottom: -70px;
+}
+
+.card-body a:hover {
+    color: #858383 !important;
+}
+
+
+@media screen and (max-width: 1408px) {
+    .container .performance {
+        margin-left: 10%;
+        font-size: 20px;
+    }
+
+    .card-body a {
+        font-size: 70%;
+        font-weight: bolder;
+    }
+
+    .card-body {
+        font-size: 75%;
+        font-weight: 600;
+    }
+
+    h3 {
+        font-weight: lighter;
+    }
+
+    .performance img {
+        width: 20%;
+    }
+
+    #names {
+        font-size: 81px;
+        margin-left: -25%;
+        margin-top: 50px;
+    }
+
+    .banner img {
+        height: 500px;
+    }
+
+    #subname {
+        font-size: 25px;
+        width: 90%;
+        text-align: right;
+        margin-left: -20%;
+        margin-top: -10%;
+
+    }
+}
+
+@media screen and (max-width: 425px) {
+
+    .container_perform {
+        margin-top: -10px;
+    }
+
+    .container_perform p {
+        font-size: smaller;
+    }
+
+    h3 {
+        font-size: 22px;
+    }
+
+    .container_perform .performance {
+        margin: 20px;
+    }
+
+    .banner img {
+        height: 500px;
+    }
+
+    .performance img {
+        width: 10%;
+    }
+
+    h3 {
+        font-weight: 400;
+    }
+
+
+}
+
+@font-face {
+    font-family: "CormorantUnicase-Regular";
+    src: url("../fonts/CormorantUnicase-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "CormorantUnicase-SemiBold";
+    src: url("../fonts/CormorantUnicase-SemiBold.ttf") format("truetype");
+    font-style: bold;
+    font-weight: bold;
+}

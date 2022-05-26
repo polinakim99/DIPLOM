@@ -1,0 +1,151 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css1/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/logo.ico' %}" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <title>Камерный театр "Триада"</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark sticky-top navbar-fixed-top trn">
+        <div class="container-fluid">
+            <a href="index.html" class="navbar-brand">
+                <img src="{% static 'img/logo2.png' %}" class="d-inline-block align-top" alt="Логотип">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a href="{% url 'affiche' %}" class="nav-link">Репертуар</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'people' %}" class="nav-link">Люди театра</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'about' %}" class="nav-link">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'contact' %}" class="nav-link">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'news' %}" class="nav-link">Новости</a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="banner">
+        <img src="{% static 'img/baner.png' %}" alt="Баннер">
+        <div class="block">
+            <h1>БЛИЖАЙШИЕ СПЕКТАКЛИ</h1>
+        </div>
+        <p>Камерный театр «Триада». <br />Единственный театр <br /> пантомимы на Дальнем<br /> Востоке</p>
+    </div>
+
+    <div class="container_perform">
+        {% for el in perform|slice:":3" %}
+        <div class="performance">
+            <a href="{{ el.get_absolute_url }}"><img src="{{ el.preview.url }}" class="d-inline-block align-top" alt="{{ el.title }}"></a>
+            <div class="block-text">
+                <p>«{{ el.title }}»</p>
+                <p>{{ el.date1.date }}</p>
+                <p>{{ el.date1.time }}</p>
+            </div>
+            <div class="buy">
+                <span class="btn first"><a href="{{ el.get_absolute_url }}">Подробнее →</a></span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="affiche">
+        <p><a href="{% url 'affiche' %}"><span class="btn first">Репертуар театра →</span></a></p>
+    </div>
+
+    <div class="pushkin">
+        <h1>Пушкинская Карта</h1>
+        <p class="par">Молодые люди в возрасте 14-22 лет могут получить банковскую карту, на которую будут начислены
+            деньги (3000
+            рублей) для покупки билетов в организации культуры, которые являются участниками программы: музеи, театры,
+            филармонии и д., полная афиша доступна на сайте <a href="https://www.culture.ru/">Культура.рф</a></p>
+        <p class="hed">Чтобы воспользоваться новым сервисом, необходимо:</p>
+        <ol>
+            <li>Зарегистрироваться на портале «Госуслуги»</li>
+            <li>Установить мобильное приложение «Госуслуги. Культура»</li>
+            <li>Получить «Пушкинскую карту» — виртуальную или пластиковую карту платежной системы «Мир»</li>
+        </ol>
+    </div>
+
+    <div class="container-xl">
+        <h1>Репертуар Пушкинской карты</h1>
+        {% for el in perform %}
+        {% if el.pushkin == True %}
+        <div class="row">
+            <div class="col-md-6 col-xl-6">
+                <div class="card">
+                    <div class="card-body ml-3">
+                        <h3 class="card-title ">{{ el.date1.date }}</h3>
+                        <h5 class="card-subtitle mb-2">{{ el.date1.time }}</h5>
+                        <p class="card-text mb-5">«{{ el.title }}»</p>
+                        <a href="{{ el.get_absolute_url }}" class="card-link btn first">Забронировать место →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-6">
+                <div class="card">
+                    <div class="card-body ml-3">
+                         <h3 class="card-title ">{{ el.date2.date }}</h3>
+                        <h5 class="card-subtitle mb-2">{{ el.date2.time }}</h5>
+                        <p class="card-text mb-5">«{{ el.title }}»</p>
+                        <a href="{{ el.get_absolute_url }}" class="card-link btn first">Забронировать место →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <ul>
+                <li>
+                    <a href="{% url 'index' %}">Главная</a>
+                </li>
+                <li>
+                    <a href="{% url 'affiche' %}">Репертуар</a>
+                </li>
+                <li>
+                    <a href="{% url 'about' %}">О нас</a>
+                </li>
+                <li>
+                   <a href="{% url 'people' %}">Люди театра</a>
+                </li>
+                <li>
+                    <a href="{% url 'contact' %}">Контакты</a>
+                </li>
+                <li>
+                    <a href="{% url 'news' %}">Новости</a>
+                </li>
+
+            </ul>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+body {
+    background-color: rgb(255, 255, 255);
+    font-family: "CormorantUnicase-Regular";
+    overflow-x: hidden;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.banner p {
+    color: white;
+    font-family: "CormorantGaramond-Light";
+    position: absolute;
+    font-weight: normal;
+    top: -350px;
+    left: 15%;
+    width: 100%;
+    font-size: 162px;
+}
+
+.bc{
+    margin-bottom:10px;
+}
+
+.container_perform .performance {
+    margin-left: 5%;
+    margin-top: -25px;
+    font-size: 20px;
+}
+
+.performance img {
+    width: 10%;
+}
+
+.performance img:hover {
+    pointer-events: none;
+}
+
+
+h3 {
+    font-weight: bold;
+}
+
+iframe {
+    margin-bottom: 70px;
+}
+
+@media screen and (max-width: 1408px) {
+    .container_perform .performance {
+        margin-left: 10%;
+        font-size: 20px;
+    }
+
+    iframe {
+        margin-top: 100px;
+        margin-bottom: 70px;
+        width: 70%;
+        height: 70%;
+    }
+
+    h3 {
+        font-weight: lighter;
+    }
+
+    .performance img {
+        width: 10% !important;
+    }
+
+
+    .block-text {
+        margin-bottom: 30px;
+    }
+
+
+    .banner img {
+        height: 500px;
+    }
+
+}
+
+@media screen and (max-width: 425px) {
+
+    iframe {
+        margin-top: 100px;
+        margin-bottom: 70px;
+        width: 70%;
+        height: 70%;
+    }
+
+
+    .container_perform {
+        margin-top: -10px;
+    }
+
+    .container_perform p {
+        font-size: smaller;
+    }
+
+    h3 {
+        font-size: 22px;
+    }
+
+    .container_perform .performance {
+        margin: 20px;
+    }
+
+    .banner img {
+        height: 500px;
+    }
+
+    .performance img {
+        width: 10% !important;
+    }
+
+
+    h3 {
+        font-weight: 400;
+    }
+
+
+}
+
+
+@font-face {
+    font-family: "CormorantGaramond-Light";
+    src: url("../fonts/CormorantGaramond-Light.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}

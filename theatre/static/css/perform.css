@@ -1,0 +1,204 @@
+body {
+    background-color: rgb(255, 255, 255);
+    font-family: "CormorantUnicase-Regular";
+    overflow-x: hidden;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.banner p {
+    color: white;
+    font-family: "CormorantGaramond-Light";
+    font-weight: normal;
+    text-align: center;
+    margin-top: -60%;
+    font-size: 142px;
+}
+
+.lead {
+    text-align: left;
+    font-weight: bolder;
+}
+
+.name {
+    font-weight: 500;
+}
+
+.img-fluid {
+    max-width: 85%;
+    height: auto;
+    margin-left: 50px;
+}
+
+
+.banner img {
+    width: 98%;
+    height: 500px;
+    position: relative;
+    background-size: cover;
+    object-fit: cover;
+}
+
+div.section {
+    position: absolute;
+    margin-top: -5%;
+    margin-left: 25%;
+    width: 50%;
+    height: 20%;
+    color: black;
+}
+
+
+.lead a{
+    color:#383838 !important;
+}
+
+h4.notreg a:hover, .lead a:hover{
+    color:rgba(38,38,38,.5) !important;
+}
+
+h4.notreg a{
+    color:#383838 !important;
+}
+
+#names {
+    text-shadow: 0px 0px 0px, 15px -10px 5px rgb(0, 0, 0);
+}
+
+#subname {
+    font-size: 1.5vw;
+
+}
+
+.poster img {
+    width: 25vw;
+    margin-left: 10vw;
+    pointer-events: none;
+}
+
+h1 {
+    margin-top: -50px;
+    margin-bottom: -20px;
+}
+
+.container_perform {
+    flex-direction: row;
+    text-align: justify;
+    width: 85vw;
+    margin-left: 7vw;
+}
+
+.container_perform .performance {
+    margin-bottom: -30px;
+}
+
+.swiper {
+    width: 90%;
+    height: 90%;
+    margin-bottom: 100px;
+}
+
+.swiper-slide {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: 0.5s;
+    object-fit: cover;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    color: rgb(255, 255, 255);
+}
+
+.swiper-pagination-bullet-active {
+    background-color: rgb(255, 255, 255) !important;
+}
+
+
+.buy p {
+    text-align: center;
+    margin: 10px 40px 10px 40px;
+}
+
+.buy {
+    width: fit-content;
+    margin-left: 20vw;
+    margin-top: 10px;
+}
+
+.d-block {
+    display: block !important;
+}
+
+@media screen and (max-width: 1408px) {
+
+    .img-fluid {
+        align-self: center;
+    }
+
+    #names {
+        font-size: 81px;
+        margin-left: -25%;
+        margin-top: 50px;
+    }
+
+    #subname {
+        font-size: 25px;
+        width: 90%;
+        text-align: right;
+        margin-left: -20%;
+        margin-top: -10%;
+
+    }
+}
+
+@media screen and (max-width: 425px) {
+
+    #names {
+        font-size: 81px;
+        margin-left: -20%;
+        margin-top: 220px;
+    }
+
+    .banner img {
+        height: 500px;
+    }
+
+    .performance img {
+        width: 10%;
+    }
+
+    #subname {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 1024px) {}
+
+@media screen and (max-width: 768px) {}
+
+@font-face {
+    font-family: "CormorantGaramond-Regular";
+    src: url("../fonts/CormorantGaramond-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}

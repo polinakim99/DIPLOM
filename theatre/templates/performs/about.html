@@ -1,0 +1,155 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css1/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/logo.ico' %}" type="image/x-icon">
+    <a href="https://www.flaticon.com/free-icons/email" title="email icons"></a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <title>Театр "Триада". О театре</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark sticky-top navbar-fixed-top trn">
+        <div class="container-fluid">
+            <a href="index.html" class="navbar-brand">
+                <img src="{% static 'img/logo2.png' %}" class="d-inline-block align-top" alt="Логотип">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a href="{% url 'index' %}" class="nav-link">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'affiche' %}" class="nav-link">Репертуар</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'people' %}" class="nav-link">Люди театра</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'about' %}" class="nav-link">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'contact' %}" class="nav-link">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'news' %}" class="nav-link">Новости</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+    <!-- конец навбара -->
+    <div class="banner">
+        <img src="{% static 'img/Frame 1.svg' %}" alt="Баннер">
+        <div class="block">
+            <h1>О ТЕАТРЕ</h1>
+        </div>
+    </div>
+
+    <div class="container-sm bc" >
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">О нас</li>
+            </ol>
+        </nav>
+    </div>
+
+    <blockquote>
+        <p>На чем зиждется?</p>
+        <p>Талант. Труд. Творчество.</p>
+        <p>Что объединяет?</p>
+        <p>Прошлое. Настоящее. Будущее.</p>
+        <p>Кем творится?</p>
+        <p>Режиссером. Актером. Зрителем.</p>
+        <p>Как творится?</p>
+        <p>Жестом. Действием. Словом.</p>
+        <p>Какова цель?</p>
+        <p>Рассмешить. Опечалить. Взволновать.</p>
+    </blockquote>
+
+
+    <div class="description">
+        <div class="date">
+            <p class="info">1975</p>
+            <p>Создание <br>любительской студии пантомимы</p>
+        </div>
+
+        <div class="date">
+            <p class="info">1989</p>
+            <p>Преобразование<br>в театр-студию<br>на волне студийного движения</p>
+        </div>
+
+        <div class="date">
+            <p class="info">1993</p>
+            <p>Получение статуса<br> муниципального театра пантомимы</p>
+        </div>
+
+        <div class="date">
+            <p class="info">2016</p>
+            <p>Название <br>«Камерный театр "ТРИАDA"»</p>
+        </div>
+    </div>
+
+
+    <div class="description">
+        <p id="paragraph_about">
+            Репертуар театра совершенно уникален:
+            сегодня в нем почти половину репертуарного списка занимают спектакли,построенные на синтезе
+            драматического и пластического искусств.
+            Другая половина репертуара по праву отдана пластической драме, классической пантомиме и клоунаде.
+            Грань жанра клоунады – тончайшая.Чуть влево – не смешно, чуть вправо – пошло, потому так символична
+            эмблема театра – кошка, идущая по лезвию бритвы.
+        </p>
+    </div>
+
+    <h1>МЫ ЛАУРЕАТЫ И ДИПЛОМАНТЫ</h1>
+    <ol id="awards">
+        <li>Международный фестиваль молодежи и студентов в Москве</li>
+        <li>Фестиваль «Театральный остров» в Санкт-Петербурге</li>
+        <li>Фестиваль «Мим-карусель» в Челябинске</li>
+        <li>Фестиваль «Фестиваль пяти»</li>
+        <li>Фестиваль «Альтернатив – 0»</li>
+        <li>Фестиваль «Благая весть»</li>
+        <li>Фестиваль театров пантомимы «Мимолет»</li>
+    </ol>
+    <footer class="footer mt-auto py-3">
+
+        <div class="container">
+            <ul>
+                <li>
+                    <a href="{% url 'index' %}">Главная</a>
+                </li>
+                <li>
+                    <a href="{% url 'affiche' %}">Репертуар</a>
+                </li>
+                <li>
+                    <a href="{% url 'about' %}">О нас</a>
+                </li>
+                <li>
+                   <a href="{% url 'people' %}">Люди театра</a>
+                </li>
+                <li>
+                    <a href="{% url 'contact' %}">Контакты</a>
+                </li>
+                <li>
+                    <a href="{% url 'news' %}">Новости</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</body>
+
+</html>
