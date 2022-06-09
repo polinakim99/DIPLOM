@@ -20,7 +20,7 @@
 <body>
    <nav class="navbar navbar-expand-md navbar-dark sticky-top navbar-fixed-top trn">
         <div class="container-fluid">
-            <a href="index.html" class="navbar-brand">
+            <a href="{% url 'index' %}" class="navbar-brand">
                 <img src="{% static 'img/logo2.png' %}" class="d-inline-block align-top" alt="Логотип">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
@@ -46,6 +46,25 @@
                     <li class="nav-item">
                         <a href="{% url 'news' %}" class="nav-link">Новости</a>
                     </li>
+                    {% if request.user.is_authenticated %}
+					<li class="nav-item text-white">
+						{{user.username}} | <a href="{%url 'logout' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-door-open text-white" viewBox="0 0 16 16">
+                            <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+                            <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5zM4 1.934V15h6V1.077l-6 .857z"/>
+                        </svg>
+                    </a>
+					</li>
+					{% else %}
+					<li class="nav-item">
+                        <a href="{% url 'login' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-door-closed text-white" viewBox="0 0 16 16">
+                                <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2zm1 13h8V2H4v13z"/>
+                                <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0z"/>
+                            </svg>
+                        </a>
+                    </li>
+					{% endif %}
                 </ul>
             </div>
 
@@ -111,10 +130,10 @@
                 </p>
 
                 <p class="lead">Продолжительность спектакля <i>2 часа 30 мин.</i> с одним антрактом.</p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <button type="button" class="btn btn-outline-secondary btn-lg px-4">Бронирование</button>
-                    <button type="button" class="btn btn-outline-secondary btn-lg px-4">Бронирование по Пушкинской
-                        карте</button>
+                    <div style="margin-rop: 10px;">
+                        <p><a href="booking/{{ el.get_absolute_url }}"><span class="btn first" style="margin-top: 20px;">Бронирование</span></a></p>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -131,27 +150,38 @@
         <div class="swiper-button-prev"></div>
         <div class="swiper-pagination"></div>
     </div>
-{% comment %}
+
+
+   <h3>Мнения людей:</h3>
+   {% for review in perform.get_review %}
+   <div class="container"  style="max-width:92%;">
+       <div class="card">
+           <div class="card-header">{{ review.username }}</div>
+           <div class="card-body">
+               <blockquote class="blockquote mb-0">
+                   <p>{{ review.text }}</p>
+                   <h6 style="font-weight:bold">{{ review.created }}</h6>
+               </blockquote>
+           </div>
+       </div>
+   </div>
+   {% endfor %}
    {% if user.is_authenticated %}
-        {% if request.user.is_superuser %}
-        <form action="" method="post">
-            {{ form.as_p }}
-            {% csrf_token %}
-            <button class="button1" type="submit">Оставить комментарий</button>
-        </form>
-        {% else %}
-        <div class="col-lg-8 col-md-3 col-4 ml-4 thumb">
-            <form action="" method="post">
-                {{ form.as_p }}
+            <form action="{% url 'add_review' perform.id %}"  method="post">
                 {% csrf_token %}
-                <button class="button1" type="submit" >Оставить комментарий</button>
+                <input type="hidden" name="parent" value="">
+                <div class="form-group editContent" id="contactparent">
+                    <label for="contactparent" class="editContent">
+                        Расскажите о своих впечатлениях от спектакля «{{ perform.title }}»
+                    </label>
+                    {{ form.text }}
+                </div>
+                <button class="button btn" type="submit" >Поделиться мнением</button>
             </form>
-        </div>
-        {% endif %}
    {% else %}
-        <h4 class="notreg">Для того чтобы оставлять комментарии, <a href="{% url 'login' %}">авторизируйтесь.</a></h4>
+        <h4 class="notreg">Для того чтобы делиться своим мнением, <a href="{% url 'login' %}">авторизируйтесь.</a></h4>
    {% endif %}
-{% endcomment %}
+
     <div class="container">
         {% for el in news %}
         <div class="card border-light mb-3">

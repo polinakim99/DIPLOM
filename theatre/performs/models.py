@@ -1,3 +1,7 @@
+import datetime
+
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -37,6 +41,19 @@ class People(models.Model):
         verbose_name_plural = "Сотрудники"
 
 
+class Seat(models.Model):
+
+    seat_no = models.IntegerField("Номер сидения")
+    row_no = models.IntegerField("Номер ряда")
+
+    def __str__(self) -> str:
+        return f"Ряд {self.row_no}, Место {self.seat_no}"
+
+    class Meta:
+        verbose_name = "Место"
+        verbose_name_plural = "Места"
+
+
 class Perform(models.Model):
 
     title = models.CharField("Название", max_length=100)
@@ -49,8 +66,9 @@ class Perform(models.Model):
                                       default="Голланд")
     choreographer = models.ManyToManyField(People, verbose_name="хореограф", related_name="perform_choreographer")
     artist = models.ManyToManyField(People, verbose_name="художник", related_name="perform_artist")
-    category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True)
+    categories = models.ManyToManyField(Category, verbose_name="категории", default="жбр")
     url = models.SlugField(max_length=160, unique=True)
+    price = models.IntegerField("Цена билета", default=500)
     date1 = models.DateTimeField("Выступление_1", default=timezone.now)
     date2 = models.DateTimeField("Выступление_2", default=timezone.now)
     date3 = models.DateTimeField("Выступление_3", default=timezone.now)
@@ -63,9 +81,41 @@ class Perform(models.Model):
     def get_absolute_url(self):
         return reverse("perform_detail", kwargs={"slug": self.url})
 
+    def get_review(self):
+        return self.reviews_set.filter(parent__isnull=True)
+
     class Meta:
         verbose_name = "Спектакль"
         verbose_name_plural = "Спектакли"
+
+
+class Session(models.Model):
+    perform = models.ForeignKey(Perform, verbose_name="Спектакль", on_delete=models.CASCADE)
+    date_time = models.DateTimeField("Выступление_1", default=timezone.now)
+
+    def __str__(self) -> str:
+        return f"{self.perform}: {self.date_time}"
+
+    class Meta:
+        verbose_name = "Сеанс"
+        verbose_name_plural = "Сеансы"
+
+
+class SessionSeat(models.Model):
+    seat = models.ForeignKey(Seat, verbose_name="Место", on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, verbose_name="Сеанс", on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f"{self.seat}: {self.session}"
+
+    class Meta:
+        verbose_name = "Распределение мест"
+        verbose_name_plural = "Распределения мест"
+
+
+class CustomUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    session_seat = models.ManyToManyField(SessionSeat, verbose_name="сеанс-место", related_name="session_seat")
 
 
 class PerformShots(models.Model):
@@ -84,47 +134,43 @@ class PerformShots(models.Model):
         verbose_name_plural = "Фотографии"
 
 
-class RatingStar(models.Model):
-
-    value = models.PositiveSmallIntegerField("Значение", default=0)
-
-    def __str__(self):
-        return f'{self.value}'
-
-    class Meta:
-        verbose_name = "Звезда рейтинга"
-        verbose_name_plural = "Звезды рейтинга"
-        ordering = ["-value"]
-
-
-class Rating(models.Model):
-
-    ip = models.CharField("IP адрес", max_length=15)
-    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
-    perform = models.ForeignKey(Perform, on_delete=models.CASCADE, verbose_name="спектакль")
-
-    def __str__(self):
-        return f"{self.star} - {self.perform}"
-
-    class Meta:
-        verbose_name = "Рейтинг"
-        verbose_name_plural = "Рейтинги"
-
-
 class Reviews(models.Model):
-
-    email = models.EmailField()
-    name = models.CharField("Имя", max_length=100)
+    username = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE, default=0)
     text = models.TextField("Сообщение", max_length=5000)
     parent = models.ForeignKey('self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True)
     perform = models.ForeignKey(Perform, verbose_name="спектакль", on_delete=models.CASCADE)
+    created = models.DateTimeField("Дата добавления", auto_now_add=True, null=True)
+    moderation = models.BooleanField("Модерация", default=True)
 
     def __str__(self):
-        return f"{self.name} - {self.perform}"
+        return f"{self.username} - {self.perform}"
 
     class Meta:
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
+
+
+class Comments(models.Model):
+    """Класс комментариев
+    """
+    username = models.ForeignKey(
+        User,
+        verbose_name="Пользователь",
+        on_delete=models.CASCADE)
+    perform = models.ForeignKey(
+         Perform,
+         verbose_name="Спектакль",
+         on_delete=models.CASCADE)
+    text = models.TextField("")
+    created = models.DateTimeField("Дата добавления", auto_now_add=True, null=True)
+    moderation = models.BooleanField("Модерация", default=True)
+
+    class Meta:
+        verbose_name = "Комментарий"
+        verbose_name_plural = "Комментарии"
+
+    def __str__(self):
+        return "{}".format(self.username)
 
 
 class News(models.Model):

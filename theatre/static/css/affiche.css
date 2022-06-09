@@ -1,12 +1,19 @@
-.card-body a {
-    font-size: 25px;
+.input-group{
+    border-radius:0px;
+    margin-top:70px;
 }
 
-.input-group{
-    width: 24%;
-    border-radius:0px;
-    margin-top:40px;
-    margin-left: 20px;
+.checked, input.form-control{
+    border-radius: 0px !important;
+}
+
+
+.btn{
+    width:max-content !important;
+}
+
+#peop{
+    margin-bottom:500px;
 }
 
 button{
@@ -15,5 +22,166 @@ button{
     background-color: #EBEBEB;
 }
 
+        #sidebar {
+            width: 20%;
+            padding: 10px;
+            margin: 0;
+        }
 
+        .filter {
+            display: none;
+            padding: 0;
+            margin: 0
+        }
+
+        @media(min-width:991px){
+            .input-group{
+                border-radius:0px;
+                margin-top:70px;
+                margin-left:15px;
+            }
+            #mobile-filter {
+                display: none
+            }
+            div.form-row{
+                margin-top:-490px;
+            }
+            .form-inline label {
+                font-size:80%;
+            }
+
+            h3{
+                font-size:90%;
+                font-weight:bold !important;
+            }
+            .card-body a {
+                font-size: 21px !important;
+            }
+
+        }
+
+        @media(min-width:768px) and (max-width:991px) {
+            .input-group{
+                border-radius:0px;
+                margin-top:70px;
+                margin-left:15px;
+            }
+
+            #mobile-filter {
+                display: none
+            }
+
+            div.form-row{
+                margin-top:-480px;
+            }
+
+            .form-inline label {
+                font-size:70%;
+            }
+            .card-body a {
+                font-size: 21px !important;
+            }
+            h3{
+                font-size:70%;
+                font-weight:bold !important;
+            }
+
+        }
+
+        @media(min-width:568px) and (max-width:767px) {
+            div.form-row{
+                margin-top:-420px;
+            }
+             .input-group{
+                border-radius:0px;
+                margin-top:70px;
+                margin-left:15px;
+            }
+
+            .form-inline label {
+                font-size:60%;
+            }
+
+            h3{
+                font-size:60%;
+                font-weight:bold !important;
+            }
+
+            #mobile-filter {
+                display: none
+            }
+            .card-body a {
+                font-size: 21px !important;
+            }
+
+        }
+
+        @media(max-width:567px) {
+            div.form-row{
+                margin-top:70px;
+            }
+
+            .form-inline label {
+                font-size:70%;
+            }
+
+            .col-12{
+                padding-right:0px;
+                padding-left:0px
+            }
+
+              .row{
+                margin-right:0px;
+                margin-left:0px;
+            }
+
+            .input-group{
+                border-radius:0px;
+                margin-top:90px;
+            }
+
+            h3{
+                font-size:70%;
+                font-weight:bold !important;
+            }
+
+            #sidebar {
+                width: 100%;
+            }
+
+
+            .list-group-item {
+                padding: 3px
+            }
+
+            .offset-1 {
+                margin-left: 8%
+            }
+
+            .filter {
+                display: block;
+                margin-top: 15%
+            }
+
+            #sidebar {
+                display: none
+            }
+
+            #mobile-filter {
+                padding: 10px
+            }
+
+            .checked{
+                padding-left:7px;
+            }
+
+             .card-body a {
+                font-size: 16px !important;
+            }
+
+            #peop{
+                margin-bottom:0px;
+            }
+
+        }
 

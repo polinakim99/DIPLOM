@@ -10,7 +10,6 @@
     <link rel="shortcut icon" href="{% static 'img/logo.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/affiche.css' %}">
     <link rel="stylesheet" href="{% static 'css/people.css' %}">
-    <a href="https://www.flaticon.com/free-icons/email" title="email icons"></a>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -20,7 +19,7 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark sticky-top navbar-fixed-top trn">
     <div class="container-fluid">
-        <a href="index.html" class="navbar-brand">
+        <a href="{% url 'index' %}" class="navbar-brand">
             <img src="{% static 'img/logo2.png' %}" class="d-inline-block align-top" alt="Логотип">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
@@ -28,9 +27,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a href="{% url 'index' %}" class="nav-link">Главная</a>
-                </li>
                 <li class="nav-item">
                     <a href="{% url 'affiche' %}" class="nav-link">Репертуар</a>
                 </li>
@@ -46,6 +42,25 @@
                 <li class="nav-item">
                     <a href="{% url 'news' %}" class="nav-link">Новости</a>
                 </li>
+                {% if request.user.is_authenticated %}
+					<li class="nav-item text-white">
+						{{user.username}} | <a href="{%url 'logout' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-door-open text-white" viewBox="0 0 16 16">
+                            <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+                            <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5zM4 1.934V15h6V1.077l-6 .857z"/>
+                        </svg>
+                    </a>
+					</li>
+					{% else %}
+					<li class="nav-item">
+                        <a href="{% url 'login' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-door-closed text-white" viewBox="0 0 16 16">
+                                <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2zm1 13h8V2H4v13z"/>
+                                <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0z"/>
+                            </svg>
+                        </a>
+                    </li>
+					{% endif %}
             </ul>
         </div>
     </div>
@@ -66,39 +81,165 @@
         </ol>
     </nav>
 </div>
-<form action="{% url 'search' %}" name="q" method="get">
-    <div class="input-group">
-        <input type="search" name="q" class="form-control" placeholder="Поиск" aria-label="Input group example" aria-describedby="basic-addon1">
-    </div>
-</form>
-{% comment %}
-<form action="{% url 'filter' %}" method="get" name="filter">
-  <h3>Возрастное ограничение</h3>
-        <ul style="list-style-type: none; text-align: left;">
-            {% for category in perform %}
-                <li>
-                    <input type="checkbox" class="checked" name="category" value="{{ category.id }}">
-                    <span>{{ category.name }}</span>
-                </li>
-            {% endfor %}
-        </ul>
-    <button type="submit">Найти</button>
-</form>
-{% endcomment %}
 
-<div class="container-fluid col-6 people" style="margin-top: 50px">
-    <div class="row col-12">
-        {% for el in perform %}
-        <div class="card col-lg-4 col-sm-12">
-            <img src="{{ el.preview.url }}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h1 class="card-title"> <a href="{{ el.get_absolute_url }}">«{{ el.title }}»</a></h1>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+<div id="mobile-filter">
+    <div>
+         <form  action="{% url 'search' %}" name="q" method="get">
+             <div class="input-group">
+                 <input type="search" name="q" class="form-control" placeholder="Поиск" aria-label="Input group example" aria-describedby="basic-addon1">
+             </div>
+         </form>
+     </div>
+     <div>
+         <h6>Возрастное ограничение</h6>
+         <form class="ml-md-2" action="{% url 'filter' %}" method="get" name="filter">
+             <div>
+                 <div class="form-inline border rounded p-sm-2 my-2 checked"> <input type="checkbox" name="category" value=1> <label
+                          class="pl-1 pt-sm-0 pt-1">18+</label>
+                 </div>
+                 <div class="form-inline border rounded p-sm-2 my-2 checked"> <input type="checkbox" name="category" value=2> <label
+                          class="pl-1 pt-sm-0 pt-1">16+</label>
+                 </div>
+                 <div class="form-inline border rounded p-md-2 p-sm-1 checked"> <input type="checkbox" name="category" value=3>
+                     <label class="pl-1 pt-sm-0 pt-1">12+</label>
+                 </div>
+                 <div class="form-inline border rounded p-md-2 p-sm-1 checked"> <input type="checkbox" name="category" value=3>
+                     <label class="pl-1 pt-sm-0 pt-1">6+</label>
+                 </div>
+                 <div class="form-inline border rounded p-md-2 p-sm-1 checked"> <input type="checkbox" name="category" value=3>
+                     <label class="pl-1 pt-sm-0 pt-1">0+</label>
+                 </div>
+             </div>
+             <h6>Пушкинская карта</h6>
+             <div>
+                 <div class="form-inline border rounded p-sm-2 my-2 checked"> <input type="checkbox" name="pushkin" value=0 id="boring"> <label
+                         for="boring" class="pl-1 pt-sm-0 pt-1">Нет оплаты</label>
+                 </div>
+                 <div class="form-inline border rounded p-sm-2 my-2 checked"> <input type="checkbox" name="pushkin" value=1 id="ugly"> <label
+                         for="ugly" class="pl-1 pt-sm-0 pt-1">Есть оплата</label>
+                 </div>
+             </div>
+             <button class="btn" type="submit">Найти</button>
+         </form>
+     </div>
+</div>
+<div class="filter"> <button class="btn btn-default" type="button" data-toggle="collapse"
+            data-target="#mobile-filter" aria-expanded="false" aria-controls="mobile-filter">Фильтры<span
+                class="fa fa-filter pl-1"></span></button>
 </div>
 
+ <section id="sidebar">
+     <div>
+         <form  action="{% url 'search' %}" name="q" method="get">
+             <div class="input-group  w-100">
+                 <input type="search" name="q" class="form-control" placeholder="Поиск" aria-label="Input group example" aria-describedby="basic-addon1">
+             </div>
+         </form>
+     </div>
+     <div>
+
+         <form class="ml-md-3" action="{% url 'filter' %}" method="get" name="filter">
+             <h3>Возрастное ограничение</h3>
+             <div>
+                 <div class="form-inline border rounded p-sm-2 my-2 checked"> <input type="checkbox" name="category" value=1>
+                     <label class="pl-1 pt-sm-0 pt-1">18+</label>
+                 </div>
+                 <div class="form-inline border rounded p-sm-2 my-2 checked"> <input type="checkbox" name="category" value=2>
+                     <label class="pl-1 pt-sm-0 pt-1">16+</label>
+                 </div>
+                 <div class="form-inline border rounded p-sm-2 my-2 checked"> <input type="checkbox" name="category" value=3>
+                     <label class="pl-1 pt-sm-0 pt-1">12+</label>
+                 </div>
+                 <div class="form-inline border rounded p-sm-2 my-2 checked"> <input type="checkbox" name="category" value=4>
+                     <label class="pl-1 pt-sm-0 pt-1">6+</label>
+                 </div>
+                 <div class="form-inline border rounded p-sm-2 my-2 checked"> <input type="checkbox" name="category" value=5>
+                     <label class="pl-1 pt-sm-0 pt-1">0+</label>
+                 </div>
+             </div>
+             <h3 style="text-align:center; margin-top:10px">Пушкинская карта</h3>
+             <div>
+                 <div class="form-inline border rounded p-sm-2 my-2 checked"> <input type="checkbox" name="pushkin" value=0> <label
+                         class="pl-1 pt-sm-0 pt-1">Нет оплаты</label>
+                 </div>
+                 <div class="form-inline border rounded p-sm-2 my-2 checked"> <input type="checkbox" name="pushkin" value=1> <label
+                         class="pl-1 pt-sm-0 pt-1">Есть оплата</label>
+                 </div>
+             </div>
+             <button class="btn" type="submit">Найти</button>
+         </form>
+     </div>
+ </section>
+
+{% comment %}
+<div class="container-fluid">
+    <form  action="{% url 'search' %}" name="q" method="get">
+        <div class="input-group">
+            <input type="search" name="q" class="form-control" placeholder="Поиск" aria-label="Input group example" aria-describedby="basic-addon1">
+        </div>
+    </form>
+
+    <form  style="text-align: left; margin-left:20px" action="{% url 'filter' %}" method="get" name="filter">
+        <header class="card-header" style="max-width:fit-content">
+                <h3 class="title">Возрастное ограничение</h3>
+        </header>
+        <ul style="list-style-type: none; margin-left:20px; text-align: left;">
+            <li>
+                <input type="checkbox" class="checked" name="category" value=1>
+                <span>18+</span>
+            </li>
+            <li>
+                <input type="checkbox" class="checked" name="category" value=2>
+                <span>16+</span>
+            </li>
+            <li>
+                <input type="checkbox" class="checked" name="category" value=3>
+                <span>12+</span>
+            </li>
+            <li>
+                <input type="checkbox" class="checked" name="category" value=4>
+                <span>6+</span>
+            </li>
+            <li>
+                <input type="checkbox" class="checked" name="category" value=5>
+                <span>0+</span>
+            </li>
+        </ul>
+        <header class="card-header">
+            <h3 class="title">Пушкинская карта</h3>
+        </header>
+        <ul style="list-style-type: none; margin-left:20px; text-align: left;">
+            <li>
+                <input type="checkbox" class="checked" name="pushkin" value=0>
+                <span>Оплата невозможна</span>
+            </li>
+            <li>
+                <input type="checkbox" class="checked" name="pushkin" value=1>
+                <span>Возможна оплата</span>
+            </li>
+        </ul>
+        <button type="submit">Найти</button>
+    </form>
+</div>
+</div>
+{% endcomment %}
+
+    <form method="GET" action=".">
+        <div class="form-row">
+            <div class="container-fluid col-6 people" style="margin-top: -30px">
+                <div class="row col-12">
+                    {% for el in perform %}
+                    <div class="card col-lg-4 col-sm-12">
+                        <img src="{{ el.preview.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h1 class="card-title" style="text-align:center;"> <a href="{{ el.get_absolute_url }}">«{{ el.title }}»</a></h1>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </form>
 
 <footer class="footer mt-auto py-3">
     <div class="container">
@@ -124,6 +265,5 @@
         </ul>
     </div>
 </footer>
-
 </body>
 </html>
